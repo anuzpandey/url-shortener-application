@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ $pageTitle === 'Home' ? '' : $pageTitle . ' | ' }} {{ config('app.name') }}</title>
+        <title>{{ $pageTitle === 'Home' ? '' : \Illuminate\Support\Str::title($pageTitle) . ' | ' }} {{ config('app.name') }}</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

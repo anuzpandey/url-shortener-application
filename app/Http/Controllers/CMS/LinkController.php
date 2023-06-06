@@ -18,7 +18,11 @@ class LinkController extends Controller
 
     public function show(Link $link)
     {
-        return $link;
+        $this->setPageTitle(($link->title ?? $link->url) . ' - Link Details');
+
+        return view('cms.links.show', [
+            'link' => $link,
+        ]);
     }
 
     public function destroy(Link $link): RedirectResponse
