@@ -20,6 +20,8 @@ class LinkController extends Controller
     {
         $this->setPageTitle(($link->title ?? $link->url) . ' - Link Details');
 
+        $link->load('views');
+
         return view('cms.links.show', [
             'link' => $link,
         ]);
