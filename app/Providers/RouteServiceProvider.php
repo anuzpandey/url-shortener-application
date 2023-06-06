@@ -27,8 +27,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->as('landing.')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('auth:web')
+            Route::middleware('web')
+                ->as('authentication.')
+                ->group(base_path('routes/auth.php'));
+
+            Route::middleware(['web', 'auth'])
                 ->as('cms.')
+                ->prefix('cms')
                 ->group(base_path('routes/cms.php'));
         });
     }

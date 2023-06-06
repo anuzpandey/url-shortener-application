@@ -9,6 +9,8 @@ class SiteController extends Controller
 {
     public function __invoke()
     {
+        $this->setPageTitle('Home');
+
         return view('landing.index');
     }
 }

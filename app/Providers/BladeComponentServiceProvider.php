@@ -17,5 +17,6 @@ class BladeComponentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::anonymousComponentPath(base_path('resources/views/landing/_components'), 'landing');
+        Blade::anonymousComponentPath(base_path('resources/views/cms/_components'), 'cms');
     }
 }

@@ -25,8 +25,8 @@
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Log in
-                <span aria-hidden="true">&rarr;</span>
+            <a href="{{ route('authentication.login.index') }}" class="btn px-6 btn-primary">
+                Login
             </a>
         </div>
     </nav>
