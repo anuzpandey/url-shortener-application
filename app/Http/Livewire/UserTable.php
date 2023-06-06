@@ -52,6 +52,7 @@ class UserTable extends DataTableComponent
                 })
                 ->html(),
             Column::make('Email', 'email')
+                ->searchable()
                 ->sortable(),
             Column::make('User Role')
                 ->label(function (User $row, Column $column) {

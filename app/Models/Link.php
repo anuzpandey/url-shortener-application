@@ -19,4 +19,8 @@ class Link extends Model
         'counter',
         'expired_at',
     ];
+
+    protected $casts = [
+        'expired_at' => 'datetime',
+    ];
 }

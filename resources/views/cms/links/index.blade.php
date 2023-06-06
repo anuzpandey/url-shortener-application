@@ -2,14 +2,14 @@
 
     <x-cms::page-header>
         <li>
-            <i data-feather="users" class="w-4 h-4 mr-2"></i>
-            Users
+            <i data-feather="link" class="w-4 h-4 mr-2"></i>
+            Links
         </li>
     </x-cms::page-header>
 
     <div class="mx-auto px-4 sm:px-6 md:px-8">
         <div class="py-4">
-            <livewire:user-table/>
+            <livewire:link-table/>
         </div>
     </div>
 

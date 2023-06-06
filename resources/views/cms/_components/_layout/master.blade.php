@@ -33,5 +33,13 @@
 
         @stack('scripts')
 
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                Livewire.hook('element.updated', (el, component) => {
+                    feather.replace();
+                })
+            });
+        </script>
+
     </body>
 </html>
