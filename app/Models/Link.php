@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToUserTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,12 +10,13 @@ class Link extends Model
 {
     use HasFactory;
 
+    use BelongsToUserTrait;
+
     protected $fillable = [
         'title',
         'url',
         'shortened_url',
         'counter',
-        'user_id',
         'expired_at',
     ];
 }

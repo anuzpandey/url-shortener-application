@@ -19,6 +19,26 @@ class StrMixin
         };
     }
 
+    public function extractDomainName(): Closure
+    {
+        return static function (string $url) {
+            // Remove the protocol (http:// or https://)
+            $url = preg_replace('/^https?:\/\//', '', $url);
+
+            // Remove "www." if present
+            $url = preg_replace('/^www\./', '', $url);
+
+            // Extract the domain title
+            preg_match('/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)/', $url, $matches);
+            $title = $matches[1];
+
+            // Remove the TLD and any remaining path segments
+            $title = preg_replace('/\.[^.]+$/', '', $title);
+
+            return $title;
+        };
+    }
+
     public function initials(): Closure
     {
         return static function (string $string) {
@@ -38,4 +58,6 @@ class StrMixin
             return mb_strtoupper(mb_substr($string, 0, 2, 'UTF-8'), 'UTF-8');
         };
     }
+
+
 }
