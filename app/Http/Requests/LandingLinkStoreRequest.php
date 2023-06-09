@@ -19,6 +19,7 @@ class LandingLinkStoreRequest extends FormRequest
         return [
             'url' => 'required|url|max:255',
             'title' => 'required|max:255',
+            'expired_at' => 'nullable|date|after:today',
         ];
     }
 

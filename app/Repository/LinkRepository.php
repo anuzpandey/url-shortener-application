@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\Link;
 use App\Services\LinkService\LinkService;
+use Illuminate\Support\Collection;
 
 class LinkRepository
 {
@@ -17,6 +18,38 @@ class LinkRepository
             ...$payload,
             'shortened_url' => $this->linkService->generateShortenedUrl(),
             'temporary_user_id' => $this->linkService->getTemporaryUserId(),
+        ]);
+    }
+
+    public function getStatistics(Link $link): Collection
+    {
+        return collect([
+            (object)[
+                'title' => 'Total Visits',
+                'value' => views($link)->count(),
+                'icon' => 'mouse-pointer',
+                'tooltip' => [],
+            ],
+            (object)[
+                'title' => 'Total Unique Visits',
+                'value' => views($link)->unique()->count(),
+                'icon' => 'mouse-pointer',
+                'tooltip' => [],
+            ],
+            (object)[
+                'title' => $link->expired_at?->isPast() ? 'Expired At' : 'Expires At',
+                'value' => $link->expired_at?->diffForHumans() ?? 'NA',
+                'icon' => 'calendar',
+                'tooltip' => [
+                    'value' => $link->expired_at?->format('d M Y'),
+                ],
+            ],
+            (object)[
+                'title' => 'Added By',
+                'value' => $link->user?->name ?? 'NA',
+                'icon' => 'user',
+                'tooltip' => [],
+            ]
         ]);
     }
 }

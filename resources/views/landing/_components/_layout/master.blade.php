@@ -6,6 +6,7 @@
         <title>{{ $pageTitle === 'Home' ? '' : $pageTitle . ' | ' }} {{ config('app.name') }}</title>
 
         @vite(['resources/css/app.css', 'resources/js/landing-scripts.js'])
+        @stack('styles')
     </head>
     <body class="min-h-screen">
 
@@ -18,6 +19,8 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @stack('scripts')
 
     </body>
 </html>

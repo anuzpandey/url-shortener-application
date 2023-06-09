@@ -19,7 +19,7 @@
 
                 <div class="mt-4">
                     <div
-                        x-data="{ show: true }"
+                        x-data="{ show: true, options: false }"
                         class="grid grid-cols-3 gap-6
                     ">
 
@@ -29,9 +29,7 @@
                             <label for="url" class="sr-only">Your URL</label>
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-4 text-sm text-gray-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/>
-                                    </svg>
+                                    <i data-feather="link" class="w-5 h-5"></i>
                                 </span>
                                 <input
                                     id="url"
@@ -40,6 +38,37 @@
                                     required
                                     placeholder="Paste a link to shorten it"
                                     autocomplete="url"
+                                    class="block py-4 px-4 w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="-mt-2 text-center w-full flex justify-end col-span-3">
+                            <p
+                                @click="options = !options"
+                                class="text-primary inline-flex items-center gap-2 text-sm cursor-pointer"
+                            >
+                                <span>Options </span>
+                                <i class="w-3 h-3 font-medium" data-feather="corner-right-down"></i>
+                            </p>
+                        </div>
+
+                        <div
+                            x-cloak
+                            x-show="options"
+                            class="col-span-3 text-left -mt-6"
+                        >
+                            <label for="expired_at" class="text-left">Expired Date</label>
+                            <div class="mt-1 flex rounded-md shadow-sm">
+                                <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-4 text-sm text-gray-500">
+                                    <i data-feather="calendar" class="w-5 h-5"></i>
+                                </span>
+                                <input
+                                    id="expired_at"
+                                    name="expired_at"
+                                    type="date"
+                                    onfocus="this.showPicker()"
+                                    placeholder="Expiry Date"
                                     class="block py-4 px-4 w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 />
                             </div>

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('title')->nullable();
             $table->string('url');
             $table->string('shortened_url')->unique();
-            $table->integer('counter')->default(0);
+            // $table->integer('counter')->default(0); // Used a package for better records
             $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
             $table->string('temporary_user_id')->nullable();
             $table->timestamp('expired_at')->nullable();

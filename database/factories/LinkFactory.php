@@ -18,9 +18,8 @@ class LinkFactory extends Factory
             'title' => Str::extractDomainName($domain),
             'url' => $domain,
             'shortened_url' => Str::random(6),
-            'counter' => 0,
             'user_id' => $this->faker->randomElement([null, User::where('user_type', UserType::CUSTOMER->value)->inRandomOrder()->first()->id]),
-            'expired_at' => $this->faker->randomElement([null, $this->faker->dateTimeBetween('now', '+1 year')]),
+            'expired_at' => $this->faker->randomElement([null, $this->faker->dateTimeBetween('-1 year', '+1 year')]),
         ];
     }
 }

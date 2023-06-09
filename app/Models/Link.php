@@ -17,11 +17,12 @@ class Link extends Model implements Viewable
 
     use BelongsToUserTrait;
 
+    protected bool $removeViewsOnDelete = true;
+
     protected $fillable = [
         'title',
         'url',
         'shortened_url',
-        'counter',
         'expired_at',
         'temporary_user_id',
     ];

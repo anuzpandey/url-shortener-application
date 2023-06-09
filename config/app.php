@@ -18,6 +18,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'eloquent_viewable_cooldown_minutes' => env('ELOQUENT_VIEWABLE_COOLDOWN_MINUTES', 5),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
