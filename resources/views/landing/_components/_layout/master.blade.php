@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ $pageTitle === 'Home' ? '' : $pageTitle . ' | ' }} {{ config('app.name') }}</title>
 
-        @vite('resources/css/app.css')
+        @vite(['resources/css/app.css', 'resources/js/landing-scripts.js'])
     </head>
     <body class="min-h-screen">
 

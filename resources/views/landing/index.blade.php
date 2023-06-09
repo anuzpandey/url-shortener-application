@@ -12,13 +12,19 @@
                     </a>
                 </div>
             </div>
-            <form class="text-center" method="POST">
+            <form class="text-center" method="POST" action="{{ route('landing.link.store') }}">
                 <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Create Short Links</h1>
                 <p class="mt-6 text-lg leading-8 text-gray-600">URL Shortener is a custom short link personalization
                     tool that enables you to target, engage, and drive more customers.</p>
 
                 <div class="mt-4">
-                    <div class="grid grid-cols-3 gap-6">
+                    <div
+                        x-data="{ show: true }"
+                        class="grid grid-cols-3 gap-6
+                    ">
+
+                        <x-landing::session-error-messages/>
+
                         <div class="col-span-3">
                             <label for="url" class="sr-only">Your URL</label>
                             <div class="mt-1 flex rounded-md shadow-sm">
@@ -50,6 +56,8 @@
                 <div class="mt-6">
                     <p class="text-gray-400 uppercase">Use it. Its free and Fast.</p>
                 </div>
+
+                @csrf
             </form>
         </div>
 

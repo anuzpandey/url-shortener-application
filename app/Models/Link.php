@@ -21,6 +21,7 @@ class Link extends Model implements Viewable
         'shortened_url',
         'counter',
         'expired_at',
+        'temporary_user_id',
     ];
 
     protected $casts = [

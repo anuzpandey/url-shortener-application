@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('shortened_url')->unique();
             $table->integer('counter')->default(0);
             $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
+            $table->string('temporary_user_id')->nullable();
             $table->timestamp('expired_at')->nullable();
             $table->timestamps();
         });
