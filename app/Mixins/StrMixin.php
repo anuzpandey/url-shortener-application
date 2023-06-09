@@ -59,5 +59,18 @@ class StrMixin
         };
     }
 
+    public function ensureSecureUrl(): Closure
+    {
+        return static function (string $url) {
+            if (preg_match('/^(http|https):\/\//', $url)) {
+                // URL already has http:// or https:// prefix, so return it as is
+                return $url;
+            } else {
+                // URL doesn't have http:// or https:// prefix, so add https:// and return the secure URL
+                return 'https://' . $url;
+            }
+        };
+    }
+
 
 }

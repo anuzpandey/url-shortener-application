@@ -7,6 +7,7 @@ use App\Http\Requests\LandingLinkStoreRequest;
 use App\Models\Link;
 use App\Repository\LinkRepository;
 use App\Services\LinkService\LinkService;
+use AshAllenDesign\FaviconFetcher\Facades\Favicon;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

@@ -2,7 +2,7 @@
 
     <nav class="flex items-center justify-between" aria-label="Global">
         <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
+            <a href="{{ route('landing.index') }}" class="-m-1.5 p-1.5">
                 <span class="sr-only">Shorten</span>
                 <x-landing::logos.logo-dark/>
             </a>
