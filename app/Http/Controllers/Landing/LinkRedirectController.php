@@ -15,6 +15,6 @@ class LinkRedirectController extends Controller
     {
         $this->recordPageViews($link);
 
-        return $link;
+        return redirect()->away($link->url);
     }
 }
