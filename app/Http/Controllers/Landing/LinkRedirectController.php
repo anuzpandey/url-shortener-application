@@ -15,6 +15,26 @@ class LinkRedirectController extends Controller
     {
         $this->recordPageViews($link);
 
-        return redirect()->away($link->url);
+        if ($link->deleted_at) {
+            $this->setPageTitle('Link deleted');
+
+            return view('landing.link.status', [
+                'message' => 'The link you\'re trying to visit has been deleted.',
+                'status' => 'DELETED',
+                'code' => '410',
+            ]);
+        }
+
+        if ($link->expired_at?->isPast()) {
+            $this->setPageTitle('Link expired');
+
+            return view('landing.link.status', [
+                'message' => 'The link you\'re trying to visit has been expired.',
+                'status' => 'EXPIRED',
+                'code' => '498',
+            ]);
+        }
+
+        return redirect()->away($link->secure_url);
     }
 }

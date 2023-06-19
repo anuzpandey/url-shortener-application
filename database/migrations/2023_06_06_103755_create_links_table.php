@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
             $table->string('temporary_user_id')->nullable();
             $table->timestamp('expired_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

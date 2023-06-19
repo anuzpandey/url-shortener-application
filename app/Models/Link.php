@@ -8,11 +8,13 @@ use CyrildeWit\EloquentViewable\InteractsWithViews;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Link extends Model implements Viewable
 {
     use HasFactory;
+    use SoftDeletes;
     use InteractsWithViews;
 
     use BelongsToUserTrait;

@@ -18,6 +18,17 @@ class LinkTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
 
+        $this->setTrAttributes(function($row, $index) {
+
+            if ($row->deleted_at) {
+                return [
+                    'class' => '!bg-red-100',
+                ];
+            }
+
+            return [];
+        });
+
         $this->setTableAttributes([
             'id' => 'link-table',
         ]);
@@ -33,7 +44,19 @@ class LinkTable extends DataTableComponent
                 ->format(
                     function ($value, $row, Column $column) {
                         $title = Str::title($value);
-                        $counter = $row->counter;
+                        $deleted = $row->deleted_at;
+                        $counter = views($row)->count();
+
+                        if ($deleted) {
+                            return '
+                                <div class="flex flex-col gap-1">
+                                    <h5 class="text-truncate text-base font-bold" style="line-height: 26px">' . Str::limit($title, 50) . '(Deleted)</h5>
+                                    <div class="text-neutral-600 text-sm">
+                                        <span class="font-medium">Clicks: ' . $counter . '</span>
+                                    </div>
+                                </div>
+                            ';
+                        }
 
                         return '
                             <div class="flex flex-col gap-1">
@@ -56,10 +79,11 @@ class LinkTable extends DataTableComponent
                                 ' . Str::limit($value, 50) . '
                             </a>
                             <div class="text-neutral-600 text-sm">
-                                <span class="font-medium">Created: ' . $row->created_at->format('d M Y') . '</span>
+                                <a href="' . config('app.url') . '/' . $row->shortened_url . '" target="_blank" class="text-blue-500 hover:underline">
+                                    ' . config('app.url') . '/' . $row->shortened_url . '
+                                </a>
                             </div>
                         </div>
-
                     ';
                 })
                 ->searchable()
@@ -68,10 +92,19 @@ class LinkTable extends DataTableComponent
             Column::make("URL ID", "shortened_url")
                 ->searchable()
                 ->sortable(),
-            Column::make("Expires at", "expired_at")
+            Column::make("Created/Expires at", "expired_at")
                 ->format(function ($value, $row, Column $column) {
-                    return $value ? $value->format('d M Y') : '-';
+                    $expiredAt = $value ? $row->expired_at->format('d M Y') : "NA";
+                    return '
+                        <div class="flex flex-col gap-1">
+                            <div class="text-neutral-600 text-sm flex flex-col">
+                                <span class="font-medium">Expires: ' . $expiredAt . '</span>
+                                <span class="font-medium">Created: ' . $row->created_at->format('d M Y') . '</span>
+                            </div>
+                        </div>
+                    ';
                 })
+                ->html()
                 ->sortable(),
             Column::make("Added By", "user.name")
                 ->eagerLoadRelations()
@@ -80,9 +113,9 @@ class LinkTable extends DataTableComponent
             Column::make('Action')
                 ->label(
                     fn($row, Column $column) => view('livewire-tables::components.actions', [
-                        'editRoute' => route('cms.links.edit', $row->id),
-                        'deleteRoute' => route('cms.links.destroy', $row->id),
-                        'showRoute' => route('cms.links.show', $row->id),
+                        'editRoute' => NULL,
+                        'deleteRoute' => route('cms.links.destroy', $row->shortened_url),
+                        'showRoute' => route('cms.links.show', $row->shortened_url),
                         'updatePermission' => 'update-user',
                         'deletePermission' => 'delete-user',
                         'showPermission' => 'show-user',
@@ -97,8 +130,9 @@ class LinkTable extends DataTableComponent
     public function builder(): Builder
     {
         return Link::query()
-            ->with('user')
-            ->select(['links.id', 'links.counter', 'links.created_at'])
-            ->latest();
+            ->with('user', 'views')
+            ->withTrashed()
+            ->select(['links.id', 'links.created_at', 'links.deleted_at'])
+            ->latest('id');
     }
 }

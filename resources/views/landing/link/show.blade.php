@@ -1,8 +1,20 @@
 <x-landing::_layout.master>
 
     <div class="relative px-6 lg:px-8">
-        <div class="mx-auto max-w-7xl py-24">
-            <div class="bg-white border border-dashed rounded-lg border-gray-500 flex gap-8 p-8 items-center">
+        <div class="mx-auto max-w-7xl pt-16 pb-24">
+
+            <x-landing::alerts.errors/>
+
+            <div class="bg-white border border-dashed rounded-lg border-gray-500 flex gap-8 p-8 items-center relative">
+
+                @if($link->expired_at?->isPast())
+                    <div class="absolute -top-5 right-4">
+                        <span class="inline-flex items-center px-6 py-2 rounded-full text-base font-medium bg-red-100 text-red-800">
+                            Expired
+                        </span>
+                    </div>
+                @endif
+
                 <div class="avatar placeholder">
                     <div class="bg-neutral-focus shrink-0 text-neutral-content rounded-full w-32 text-5xl">
                         <span>{{ \Illuminate\Support\Str::initials($link->title) }}</span>
@@ -34,7 +46,7 @@
                                     <p class="ml-16 truncate text-sm font-medium text-gray-500">{{ $statistic->title }}</p>
                                 </dt>
                                 <dd class="ml-16 flex items-baseline">
-                                    @if($statistic->tooltip)
+                                    @if($statistic->tooltip && $statistic?->tooltip['value'])
                                         <div class="tooltip" data-tip="{{ $statistic->tooltip['value'] }}">
                                             <p class="text-xl font-semibold text-gray-900">{{ $statistic->value }}</p>
                                         </div>
