@@ -17,7 +17,7 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-FROM node:16.10.0-alpine3.14
+FROM node:16
 
 WORKDIR /app
 
