@@ -21,9 +21,13 @@ FROM node:19-alpine
 
 WORKDIR /var/www/html
 
-COPY ["package.json", "package-lock.json*", "./"]
+COPY package*.json ./
 
 RUN npm install
 RUN npm run build
+
+COPY . .
+
+EXPOSE 3000
 
 CMD ["npm", "run", "/start.sh"]
