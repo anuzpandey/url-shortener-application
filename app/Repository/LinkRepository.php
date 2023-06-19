@@ -5,12 +5,15 @@ namespace App\Repository;
 use App\Models\Link;
 use App\Services\LinkService\LinkService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class LinkRepository
 {
     public function __construct(
         public LinkService $linkService
-    ) {}
+    )
+    {
+    }
 
     public function store(array $payload): Link
     {
@@ -51,5 +54,18 @@ class LinkRepository
                 'tooltip' => [],
             ]
         ]);
+    }
+
+    public function getChartData(Link $link): Collection
+    {
+        return DB::table('views')
+            ->where('viewable_id', $link->id)
+            ->where('viewable_type', Link::class)
+            ->groupBy(DB::raw('DATE_FORMAT(viewed_at, "%Y-%m-%d")'))
+            ->orderBy('date')
+            ->get([
+                DB::raw('DATE_FORMAT(viewed_at, "%Y-%m-%d") as date'),
+                DB::raw('COUNT(*) as views'),
+            ]);
     }
 }

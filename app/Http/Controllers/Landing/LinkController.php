@@ -28,15 +28,7 @@ class LinkController extends Controller
 
         $link->load('views');
 
-        $chartData = DB::table('views')
-            ->where('viewable_id', $link->id)
-            ->where('viewable_type', Link::class)
-            ->groupBy(DB::raw('DATE_FORMAT(viewed_at, "%Y-%m-%d")'))
-            ->orderBy('date')
-            ->get([
-                DB::raw('DATE_FORMAT(viewed_at, "%Y-%m-%d") as date'),
-                DB::raw('COUNT(*) as views'),
-            ]);
+        $chartData = $this->linkRepository->getChartData($link);
 
         $statistics = $this->linkRepository->getStatistics($link);
 
