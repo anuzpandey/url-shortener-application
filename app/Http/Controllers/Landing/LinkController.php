@@ -54,9 +54,7 @@ class LinkController extends Controller
 
             return $this->responseRedirect(
                 route: route('landing.link.show', $link->shortened_url),
-                message: $link,
-                type: 'Link created successfully',
-                error: 'success'
+                message: 'Link created successfully',
             );
         } catch (Exception $exception) {
             return $this->responseRedirectBack(
