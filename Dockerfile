@@ -19,7 +19,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 FROM node:19-alpine
 
-WORKDIR /var/www/html/public
+WORKDIR /var/www/html
 
 COPY ["package.json", "package-lock.json*", "./"]
 
